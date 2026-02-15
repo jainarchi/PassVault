@@ -1,57 +1,13 @@
-const express = require('express')
-const dotenv = require('dotenv');
-const {MongoClient} = require('mongodb')
-
-
-
-dotenv.config() ;
-
-const url = 'mongodb://localhost:27017';     // connection url 
-const client = new MongoClient(url);
-
-const dbName = 'passOP';
-const app = express()
-const port = 3000
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-                               
-
-client.connect();
-
-
-app.get('/', async(req, res) => {
-    const db = client.db(dbName);
-    const collection = db.collection('documents');
-    const findResult = await collection.find({}).toArray();
-    res.json(findResult)
-})
-
-
-app.post('/', async(req, res) => {
-    const password = req.body
-    const db = client.db(dbName);
-    const collection = db.collection('passwords');
-    const findResult = await collection.insertOne(password);
-    res.send({success: true , result : findResult});
-
-})
-
-
-
-app.delete('/', async(req, res) => {
-    const password = req.body
-    const db = client.db(dbName);
-    const collection = db.collection('passwords');
-    const findResult = await collection.deleteOne(password);
-    res.send({success: true , result : findResult});
-
-})
+require('dotenv').config()
+const app = require('./src/app')
+const connectToDB = require('./src/config/db')
 
 
 
 
 
+connectToDB()
 
-app.listen(port, () => {
-  console.log(`app listening on port http://localhost:${port}`)
+app.listen(3000 , () =>{
+    console.log('Server listen on PORT  3000')
 })
