@@ -24,7 +24,9 @@ const credentialSchema = new mongoose.Schema({
     timestamps : true
 })
 
+
+
 const credentialModel = mongoose.model('credential', credentialSchema)
 
-module.exports = creadentialModel
+module.exports = credentialModel
 
