@@ -6,6 +6,8 @@ const bcryptjs = require('bcryptjs')
 
 
 async function registerUser (req , res) {
+
+    try{
    const {name , email , password} = req.body
 
    const userExists = await userModel.findOne({email})
@@ -16,30 +18,52 @@ async function registerUser (req , res) {
         message: 'user already exists, please login'
     })
    }
-   
+    
    const hash = await bcryptjs.hash(password , 10)
-   
+    
    const user = await userModel.create({
     name ,
     email,
     password : hash
    })
 
+
    const token = jwt.sign({id: user._id} , process.env.JWT_SECRET , {expiresIn : '1d'})
     
-   res.cookie('token' , token)
+   res.cookie('token' , token , {httpOnly : true})
 
    res.status(201)
    .json({
-    message : 'User Register successfully'
+     message : 'User Register successfully',
+     user
    })
+
+   }catch(err){
+    res.status(500)
+    .json({
+        message : "Internal server error"
+    })
+   }
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
 async function loginUser(req , res){
+
+    try{
     const {email , password} = req.body
 
-    const user = await userModel.findOne({email})
+    const user = await userModel.findOne({email}).select("+password")
 
     if(!user){
         return res.status(404)
@@ -59,12 +83,36 @@ async function loginUser(req , res){
 
 
     const token = jwt.sign({id: user._id} , process.env.JWT_SECRET , {expiresIn: '1d'})
-    res.cookie('token' , token)
+    res.cookie('token' , token , {httpOnly : true})
 
 
     res.status(200)
     .json({
-        message: 'User loggedIn successfully'
+        message: 'User loggedIn successfully',
+        user
+    })
+
+
+
+} catch(err){
+    res.status(500)
+    .json({
+        message : "Internal server error"
+    })
+}
+}
+
+
+
+async function logoutUser(req , res) {
+
+    
+    res.clearCookie('token')
+
+    res.status(200)
+    .json({
+        message : 'logged out successfully',
+        
     })
 }
 
@@ -74,5 +122,6 @@ async function loginUser(req , res){
 
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 }

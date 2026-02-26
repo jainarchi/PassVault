@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 
+
 const Manager = () => {
   const eyeicon = useRef();
   const passwordRef = useRef();
@@ -14,6 +15,8 @@ const Manager = () => {
       setPasswordArray(JSON.parse(passwords));
     }
   }, []);
+
+
 
   const savePassword = () => {
     if (
@@ -89,9 +92,6 @@ const Manager = () => {
     }
   };
 
-  const handleChange = (e) => {
-    setform({ ...form, [e.target.name]: e.target.value });
-  };
 
   const copyText = (text) => {
     toast("Copied to clipboard!", {
@@ -109,7 +109,6 @@ const Manager = () => {
     navigator.clipboard.writeText(text);
   };
 
-  const deleteText = (text) => {};
 
   return (
     <>
@@ -124,27 +123,20 @@ const Manager = () => {
         draggable
         pauseOnHover
         theme="light"
-        // transition="Bounce"
       />
 
       <div className="absolute inset-0 -z-10 h-full w-full bg-green-100 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)]"></div>
       </div>
 
-      <div className=" md:myContainer min-h-[88vh] container mx-auto max-w-5xl py-3 px-1.5  md:px-20 flex flex-col items-center gap-2">
-        <div className="logo font-bold text-white text-3xl">
-          <span className="text-green-500 ">&lt;</span>
-          <span className="text-black">Pass</span>
-          <span className="text-green-500 ">Vault/&gt;</span>
-        </div>
-
-        <h3>Your Own Password Manager</h3>
+      <div className=" md:myContainer min-h-[88vh] container mx-auto max-w-5xl py-3 px-1.5  md:px-20 flex flex-col items-center gap-2 ">
+   
 
         <div className="flex flex-col gap-4 w-full py-4">
           <input
             value={form.site}
             onChange={handleChange}
-            className="border border-green-400 rounded-full px-2"
+            className="border border-green-400 rounded-2xl px-2 py-1"
             type="text"
             name="site"
             id="site"
@@ -155,7 +147,7 @@ const Manager = () => {
             <input
               value={form.username}
               onChange={handleChange}
-              className="border border-green-400 rounded-full w-[100%] md:w-[70%] px-2 mb-3"
+              className="border border-green-400 rounded-2xl px-2 py-1 w-[100%] md:w-[70%] mb-3"
               type="text"
               name="username"
               id="username"
@@ -167,7 +159,7 @@ const Manager = () => {
                 ref={passwordRef}
                 value={form.password}
                 onChange={handleChange}
-                className="border border-green-400 rounded-full w-full px-2"
+                className="border border-green-400 rounded-2xl px-2 py-1 w-full"
                 type="password"
                 name="password"
                 id="password"
@@ -183,7 +175,7 @@ const Manager = () => {
           </div>
         </div>
 
-        <button
+        {/* <button
           onClick={savePassword}
           className="font-semibold flex justify-center items-center px-2 rounded-full gap-2 border border-white bg-green-500 hover:bg-green-400 "
         >
@@ -195,7 +187,7 @@ const Manager = () => {
             ></lord-icon>
           </span>
           Save
-        </button>
+        </button> */}
 
         <div className="w-full">
           <h2 className="font-bold text-xl px-1">Your Passwords</h2>
@@ -203,7 +195,7 @@ const Manager = () => {
             <div className="py-5">No password to show</div>
           )}
           {passwordArray.length != 0 && (
-            <table class="table-auto border border-green-700 w-full  rounded-lg overflow-hidden mb-3">
+            <table className="table-auto border border-green-700 w-full  rounded-lg overflow-hidden mb-3">
               <thead className="bg-green-800 text-white py-6">
                 <tr>
                   <th className="py-2 font-semibold">Site</th>

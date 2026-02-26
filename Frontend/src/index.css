@@ -9,3 +9,105 @@
         @apply container mx-auto ;  
     }
 }
+
+
+.formContainer{
+       min-height: 80vh ;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       
+}
+
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    background: rgb(235, 251, 244);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+
+}
+
+.form h2{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: rgb(2, 62, 2);
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+.form_input , .formButton{
+   padding: 0.4rem;
+   border-radius: 0.2rem;
+   border: 1px solid rgb(176, 176, 176);
+   min-width: 260px;
+
+}
+.formButton{
+    background: rgb(2, 203, 103);
+    font-weight: 600;
+    border: none;
+}
+
+.form p{
+    padding-top: 1rem;
+}
+
+.authToggleBtn{
+    color: rgb(2, 203, 103) ;
+}
+
+
+.profileBtn{
+    border: 2px solid green;
+    padding: 0.2rem;
+    border-radius: 50%;
+    background: whitesmoke;
+
+
+    .profileIcon{
+        color: rgba(4, 149, 35, 0.864);
+        
+    }
+}
+
+
+.navleft{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* background: #000; */
+}
+.userInfo{
+    background: rgb(214, 250, 236);
+    color: black;
+    border-radius: 6px;
+    position: absolute;
+    top: 3.1rem;
+    visibility: hidden;
+   
+
+}
+
+.userInfo div{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 6px;
+    
+    
+    
+}
+
+@media (max-width:1100px){
+    
+.userInfo{
+  
+    top: 3.1rem;
+    right: 0rem;
+
+}
+}

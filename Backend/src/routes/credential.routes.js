@@ -1,5 +1,5 @@
 const express = require('express')
-const protect = require('../middlewares/auth.middleware')
+const identifyUser = require('../middlewares/auth.middleware')
 const {
     getAllCredential,
     createCredential,
@@ -15,13 +15,13 @@ const credentialRouter = express.Router()
 
 //   api/credential/   [protected]
 
-credentialRouter.get('/' , protect , getAllCredential )
+credentialRouter.get('/' , identifyUser , getAllCredential )
 
-credentialRouter.post('/', protect, createCredential )
+credentialRouter.post('/', identifyUser, createCredential )
 
-credentialRouter.delete('/:id', protect, deleteCredential )
+credentialRouter.delete('/:id', identifyUser, deleteCredential )
 
-credentialRouter.patch('/:id', protect, updateCredential )
+credentialRouter.patch('/:id', identifyUser, updateCredential )
 
 
 
